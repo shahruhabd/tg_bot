@@ -1,0 +1,29 @@
+name: Deploy
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.12]
+        
+    steps:
+    - uses: actions/checkout@v3
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: 34.125.123.207
+        username: ${{ secrets.PASSWORD }}
+        password: ${{ secrets.shahruhabd }}
+        port: 22
+        script: |
+          cd helpdesk
+          source ./venv/bin/activate
+          git pull
+          python manage.py migrate
+          python manage.py collectstatic --noinput
+          supervisorctl restart all
