@@ -20,14 +20,11 @@ httpx==0.25.1
 hyperlink==21.0.0
 idna==3.4
 incremental==22.10.0
-ldap3==2.9.1
-psycopg2==2.9.9
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycparser==2.21
 pyOpenSSL==23.3.0
 python-ldap==3.4.4
-python-telegram-bot==13.13
 pytz==2023.3.post1
 requests==2.31.0
 service-identity==23.1.0
@@ -40,5 +37,4 @@ Twisted==23.10.0
 txaio==23.1.1
 typing_extensions==4.8.0
 tzlocal==5.2
-urllib3==2.1.0
 zope.interface==6.1
