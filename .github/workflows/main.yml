@@ -24,6 +24,7 @@ jobs:
         pip install -r helpdesk/requirements.txt
     - name: Run Tests
       run: |
+        cd helpdesk
         python manage.py test
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
