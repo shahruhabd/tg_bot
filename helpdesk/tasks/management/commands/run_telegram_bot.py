@@ -24,45 +24,36 @@ def help(message):
     help_message_commands = "Команды \n\n/tasks - просмотр заявок\n/add - добавить заявку"
     bot.send_message(message.chat.id, help_message_commands)
 
-# Определение состояний
 WAITING_FOR_DESCRIPTION, WAITING_FOR_CLASSROOM = range(2)
 user_state = {}
 
-# Функция для получения текущего состояния пользователя
 def get_user_state(message):
     return user_state.get(message.chat.id, None)
 
-# Функция для обновления состояния пользователя
 def update_user_state(message, state):
     user_state[message.chat.id] = state
 
-# Обработчик для команды '/add'
 @bot.message_handler(commands=['add'])
 def handle_add(message):
     bot.send_message(message.chat.id, "Введите описание проблемы:")
     update_user_state(message, WAITING_FOR_DESCRIPTION)
 
-# Обработчик для ввода описания
 @bot.message_handler(func=lambda message: get_user_state(message) == WAITING_FOR_DESCRIPTION)
 def handle_description(message):
-    # Здесь можно сохранить описание во временное хранилище
     temp_storage[message.chat.id] = {'description': message.text}
     bot.send_message(message.chat.id, "Введите номер аудитории:")
     update_user_state(message, WAITING_FOR_CLASSROOM)
 
-# Обработчик для ввода аудитории
 @bot.message_handler(func=lambda message: get_user_state(message) == WAITING_FOR_CLASSROOM)
 def handle_classroom(message):
     task_info = temp_storage.get(message.chat.id, {})
     task_info['classroom'] = message.text
 
-    # Здесь создайте и сохраните объект задачи
     Task.objects.create(description=task_info['description'], classroom=task_info['classroom'])
 
     bot.send_message(message.chat.id, "Задача успешно добавлена, ожидайте!")
-    update_user_state(message, None)  # Сбросить состояние
+    update_user_state(message, None)  
 
-# Инициализация temp_storage
 temp_storage = {}
 
 
