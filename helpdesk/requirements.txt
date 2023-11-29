@@ -13,7 +13,6 @@ cryptography==41.0.5
 daphne==4.0.0
 decorator==5.1.1
 Django==4.2.7
-django-auth-ldap==4.6.0
 h11==0.14.0
 httpcore==1.0.2
 httpx==0.25.1
@@ -24,7 +23,6 @@ pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycparser==2.21
 pyOpenSSL==23.3.0
-python-ldap==3.4.4
 pytz==2023.3.post1
 requests==2.31.0
 service-identity==23.1.0
